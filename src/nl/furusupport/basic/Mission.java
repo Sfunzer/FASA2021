@@ -5,20 +5,34 @@ import java.time.temporal.ChronoUnit;
 
 public class Mission {
     private String missionName;
-    private String launchDate;
-    private String splashDownDate;
+    private LocalDate launchDate;
+    private LocalDate splashDownDate;
     private Long missionSpaceDays;
 
     public Mission(String missionName, String launchDate){
         this.missionName = missionName;
-        this.launchDate = launchDate;
+        this.launchDate = LocalDate.parse(launchDate);
     }
 
-    public void setSplashDownDate(String splashDownDate) {
-        this.splashDownDate = splashDownDate;
+    public boolean setSplashDownDate(String splashDownDate) {
 
-        missionSpaceDays = ChronoUnit.DAYS.between(LocalDate.parse(launchDate), LocalDate.parse(splashDownDate));
+
+        if(launchDate.isAfter(LocalDate.parse(splashDownDate)))  {
+            return false;
+        }
+
+        this.splashDownDate = LocalDate.parse(splashDownDate);
+        missionSpaceDays = ChronoUnit.DAYS.between(launchDate, this.splashDownDate);
+            return true;
+
+
+
+
     }
 
 
 }
+
+
+// added field "missionSpaceDays"
+// added "set SplashDownDate"
