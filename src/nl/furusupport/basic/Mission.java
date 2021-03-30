@@ -24,13 +24,21 @@ public class Mission {
         this.splashDownDate = LocalDate.parse(splashDownDate);
         missionSpaceDays = ChronoUnit.DAYS.between(launchDate, this.splashDownDate);
             return true;
-
-
-
-
     }
 
+    public Long getMissionSpaceDays() {
+        return missionSpaceDays;
+    }
 
+    @Override
+    public String toString() {
+        return "Mission{" +
+                "missionName='" + missionName + '\'' +
+                ", launchDate=" + launchDate +
+                ", splashDownDate=" + splashDownDate +
+                ", missionSpaceDays=" + missionSpaceDays +
+                '}';
+    }
 }
 
 
