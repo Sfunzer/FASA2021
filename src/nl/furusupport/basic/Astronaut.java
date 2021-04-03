@@ -1,12 +1,14 @@
 package nl.furusupport.basic;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Astronaut {
-    private String astronautName;
-    private String astronautNationality;
-    private ArrayList<Mission> assignedMissions;
-    private Long totalSpaceDays;
+    private final String astronautName;
+    private final String astronautNationality;
+    private final List<Mission> assignedMissions;
+    private Long astronautTotalSpaceDays;
     private boolean splashcheck;
 
 
@@ -14,11 +16,10 @@ public class Astronaut {
         this.astronautName = astronautName;
         this.astronautNationality = astronautNationality;
 
-        assignedMissions = new ArrayList();
+        assignedMissions = new ArrayList<>();
     }
     public void assignMission (Mission nextMission){
         assignedMissions.add(nextMission);
-        //return true;
     }
 
     public boolean setAstronautSplashdown(Mission whichMission, String splashDay) {
@@ -27,21 +28,21 @@ public class Astronaut {
                 splashcheck = nextMission.setSplashDownDate(splashDay);
 
             }
-            //return splashcheck;
+
         }
         return splashcheck;
     }
 
 
-    public Long calculateTotalSpaceDays(){
+    public void calculateAstronautTotalSpaceDays(){
+        astronautTotalSpaceDays = 0L;
         for (Mission nextSpaceDaysCount:assignedMissions) {
-            totalSpaceDays = totalSpaceDays + nextSpaceDaysCount.getMissionSpaceDays();
+            astronautTotalSpaceDays = astronautTotalSpaceDays + nextSpaceDaysCount.getMissionSpaceDays();
         }
-        return totalSpaceDays;
     }
 
-    public ArrayList<Mission> getAssignedMissions() {
-        return assignedMissions;
+    public List<Mission> getAssignedMissions() {
+        return Collections.unmodifiableList(assignedMissions);
     }
 
     public String getAstronautName() {
@@ -54,6 +55,7 @@ public class Astronaut {
                 "astronautName='" + astronautName + '\'' +
                 ", astronautNationality='" + astronautNationality + '\'' +
                 ", assignedMissions=" + assignedMissions +
+                "astronautTotalSpaceDays=" + astronautTotalSpaceDays +
                 '}';
     }
 }
